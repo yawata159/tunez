@@ -5,6 +5,10 @@
 
 #include "songnode.h"
 
+void print_node(song_node *node) {
+  printf("%s - %s\n", node->artist, node->name);
+}
+
 void print_list(song_node *list) {
   if (!list) {
     printf("\n");
@@ -61,45 +65,6 @@ song_node * insert_order(song_node *list, char *artist, char *name) {
   
 }
 
-song_node * find_song(song_node *list, char *artist, char *name) {
-  while (list) {
-    if (strcmp(name, list->name) == 0 && strcmp(artist, list->artist) == 0)
-      return list;
-    else
-      list=list->next;
-  }
-  return 0;
-}
-
-song_node * find_artist(song_node *list, char *artist) {
-  while (list) {
-    if (strcmp(artist, list->artist) == 0)
-      return list;
-    else
-      list=list->next;
-  }
-  return 0;
-}
-
-song_node * random_song(song_node *list) {
-  int len = 0;
-  song_node *copy = list;
-  while (copy) {
-    len++;
-    copy = copy->next;
-  }
-  
-  srand(time(NULL));
-  int randindex = (int)(len * ((double)rand()/RAND_MAX));
-  while (randindex) {
-    list = list->next;
-    randindex--;
-  }
-  
-  return list;
-  
-}
-
 song_node * remove_song(song_node *list, char *artist, char *name) {
   
   // @ beginning
@@ -130,15 +95,53 @@ song_node * free_list(song_node *list) {
   return list;
 }
 
+song_node * find_song(song_node *list, char *artist, char *name) {
+  while (list) {
+    if (strcmp(name, list->name) == 0 && strcmp(artist, list->artist) == 0)
+      return list;
+    else
+      list=list->next;
+  }
+  return 0;
+}
+
+song_node * find_artist(song_node *list, char *artist) {
+  while (list) {
+    if (strcmp(artist, list->artist) == 0)
+      return list;
+    else
+      list=list->next;
+  }
+  return 0;
+}
+
+song_node * fond_random(song_node *list) {
+  int len = 0;
+  song_node *copy = list;
+  while (copy) {
+    len++;
+    copy = copy->next;
+  }
+  
+  srand(time(NULL));
+  int randindex = (int)(len * ((double)rand()/RAND_MAX));
+  while (randindex) {
+    list = list->next;
+    randindex--;
+  }
+  
+  return list;
+  
+}
+
+/*
 int main() {
   song_node *p_list = 0;
-  p_list = insert_order(p_list, "pink floyd", "time");
-  p_list = insert_front(p_list, "pearl jam", "alive");
   p_list = insert_order(p_list, "pearl jam", "yellow");
+  p_list = insert_order(p_list, "pink floyd", "time");
   p_list = insert_order(p_list, "pearl jam", "even");
-  print_list(p_list);
-
-  p_list = free_list(p_list);
+  p_list = insert_order(p_list, "pearl jam", "alive");
   print_list(p_list);
   return 0;
 }
+*/
