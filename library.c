@@ -7,23 +7,14 @@
 
 song_node *table[26];
 
-// song_node associated with artist's first letter
-song_node *table_sub_letter(char *artist) {
-  char letter = artist[0];
-  song_node *letter_node = table[letter-'a'];
-  return letter_node;
-}
-
 // add songs
 void add_song(char *artist, char *name) {
-  song_node *letter_node = table_sub_letter(artist);
-  letter_node = insert_order(letter_node, artist, name);
+  table[artist[0] - 'a'] = insert_order(table[artist[0] - 'a'], artist, name);
 }
 
 // delete a song
 void delete_song(char *artist, char *name) {
-  song_node *letter_node = table_sub_letter(artist);
-  letter_node = remove_song(letter_node, artist, name);
+  table[artist[0] - 'a'] = remove_song(table[artist[0] - 'a'], artist, name);
 }
 
 // delete all the nodes
@@ -47,7 +38,7 @@ song_node *search_song(char* name) {
 
 // search for an artist
 song_node *search_artist(char* artist) {
-  song_node *letter_node = table_sub_letter(artist);
+  song_node *letter_node = table[artist[0] - 'a'];
   song_node *potential_find = find_artist(letter_node, artist);
   if (potential_find)
     return potential_find;

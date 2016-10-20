@@ -5,6 +5,7 @@
 
 #include "link_list.h"
 
+// length of linked_list
 int len(song_node *node) {
   int ret = 0;
   while (node) {
@@ -14,10 +15,12 @@ int len(song_node *node) {
   return ret;
 }
 
+// print one node
 void print_node(song_node *node) {
   printf("%s - %s\n", node->artist, node->name);
 }
 
+// print all nodes (sep. by |)
 void print_list(song_node *list) {
   if (list) {
     printf("|");
@@ -29,6 +32,7 @@ void print_list(song_node *list) {
   }  
 }
 
+// insert node at front of list (returns first node)
 song_node * insert_front(song_node *list, char *artist, char *name) {
   song_node *new = (song_node *)malloc(sizeof(song_node));
   new->next = list;
@@ -37,8 +41,8 @@ song_node * insert_front(song_node *list, char *artist, char *name) {
   return new;
 }
 
+// insert node in order (returns first node)
 song_node * insert_order(song_node *list, char *artist, char *name) {
-
   // front
   if (list == 0 ||
       strcmp(artist, list->artist) < 0 ||
@@ -47,19 +51,15 @@ song_node * insert_order(song_node *list, char *artist, char *name) {
 
   // middle
   song_node *ret = list;
-
   while (list->next) {
     int artistComp = strcmp(artist, (list->next)->artist);
     int nameComp = strcmp(name, (list->next)->name);
-    
     if (artistComp < 0 || (artistComp == 0 && nameComp < 0)) { 
       list->next = insert_front(list->next,artist,name);
       return ret;
     }
-    
-    else {
+    else
       list = list->next;
-    }
   }
 
   // end
@@ -68,15 +68,15 @@ song_node * insert_order(song_node *list, char *artist, char *name) {
   strcpy(last->artist, artist);  
   strcpy(last->name, name);
   return ret;
-  
 }
 
+// remove song from linked_list (returns first node)
 song_node * remove_song(song_node *list, char *artist, char *name) {
-  
-  // @ beginning
+  // front
   if (strcmp(name, list->name) == 0 && strcmp(artist, list->artist) == 0)
     return list->next;
   
+  // middle or end
   song_node *ret = list; 
   while (list->next) {
     if (strcmp(name, (list->next)->name) == 0 && 
@@ -88,9 +88,9 @@ song_node * remove_song(song_node *list, char *artist, char *name) {
       list=list->next;
   }
   return 0;
-
 }
 
+// delete all nodes (returns first node - now null)
 song_node * free_list(song_node *list) {
   song_node *temp = list;
   while ( list ) {
@@ -101,6 +101,7 @@ song_node * free_list(song_node *list) {
   return list;
 }
 
+// find song by name (first occurrence)
 song_node * find_song(song_node *list, char *name) {
   while (list) {
     if (strcmp(name, list->name) == 0)
@@ -111,6 +112,7 @@ song_node * find_song(song_node *list, char *name) {
   return 0;
 }
 
+// find song by artist (first occurrence)
 song_node * find_artist(song_node *list, char *artist) {
   while (list) {
     if (strcmp(artist, list->artist) == 0)
@@ -121,21 +123,19 @@ song_node * find_artist(song_node *list, char *artist) {
   return 0;
 }
 
+// find random song
 song_node * find_random(song_node *list) {
   song_node *copy = list;
   while (copy) {
     copy = copy->next;
   }
-  
   srand(time(NULL));
   int randindex = (int)(len(list) * ((double)rand()/RAND_MAX));
   while (randindex) {
     list = list->next;
     randindex--;
   }
-  
   return list;
-  
 }
 
 /*

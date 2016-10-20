@@ -1,6 +1,6 @@
 #include "link_list.h"
 
-song_node *table_sub_letter(char *artist);
+
 
 void add_song(char* artist, char* name);
 void delete_song(char *artist, char *name);
