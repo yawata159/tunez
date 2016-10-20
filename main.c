@@ -14,6 +14,7 @@ int main() {
   add_song(a1, s1);
   add_song(a1, s2);
   add_song(a2, s3);
-  print_library();
+  print_letter_entries('b');
+  // print_library();
   return 0;
 }

@@ -10,11 +10,15 @@ song_node *table[26];
 // add songs
 void add_song(char *artist, char *name) {
   table[artist[0] - 'a'] = insert_order(table[artist[0] - 'a'], artist, name);
+  printf(">> Added ");
+  print_node(table[artist[0] - 'a']);
 }
 
 // delete a song
 void delete_song(char *artist, char *name) {
   table[artist[0] - 'a'] = remove_song(table[artist[0] - 'a'], artist, name);
+  printf(">> Removed ");
+  print_node(table[artist[0] - 'a']);  
 }
 
 // delete all the nodes
@@ -22,6 +26,7 @@ void delete_all() {
   int i = 0;
   for (; i < 26; i++)
     free_list(table[i]);
+  printf(">> Removed all songs\n");
 }
 
 // search for a song
@@ -47,6 +52,7 @@ song_node *search_artist(char* artist) {
 
 // print out all the entries under a certain letter
 void print_letter_entries(char c) {
+  printf(">> Songs under '%c':\n", c);
   print_list(table[c - 'a']);
 }
 
