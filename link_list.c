@@ -3,24 +3,30 @@
 #include <string.h>
 #include <time.h>
 
-#include "songnode.h"
+#include "link_list.h"
+
+int len(song_node *node) {
+  int ret = 0;
+  while (node) {
+    ret++;
+    node = node->next;
+  }
+  return ret;
+}
 
 void print_node(song_node *node) {
   printf("%s - %s\n", node->artist, node->name);
 }
 
 void print_list(song_node *list) {
-  if (!list) {
-    printf("\n");
-    return;
-  }
-  
-  printf("| ");
-  while(list) {
-    printf("%s - %s | ", list->artist, list->name );
-    list = list->next;
-  }
-  printf("\n");
+  if (list) {
+    printf("|");
+    while(list) {
+      printf(" %s - %s |", list->artist, list->name );
+      list = list->next;
+    }
+    printf("\n");  
+  }  
 }
 
 song_node * insert_front(song_node *list, char *artist, char *name) {
@@ -95,9 +101,9 @@ song_node * free_list(song_node *list) {
   return list;
 }
 
-song_node * find_song(song_node *list, char *artist, char *name) {
+song_node * find_song(song_node *list, char *name) {
   while (list) {
-    if (strcmp(name, list->name) == 0 && strcmp(artist, list->artist) == 0)
+    if (strcmp(name, list->name) == 0)
       return list;
     else
       list=list->next;
@@ -115,16 +121,14 @@ song_node * find_artist(song_node *list, char *artist) {
   return 0;
 }
 
-song_node * fond_random(song_node *list) {
-  int len = 0;
+song_node * find_random(song_node *list) {
   song_node *copy = list;
   while (copy) {
-    len++;
     copy = copy->next;
   }
   
   srand(time(NULL));
-  int randindex = (int)(len * ((double)rand()/RAND_MAX));
+  int randindex = (int)(len(list) * ((double)rand()/RAND_MAX));
   while (randindex) {
     list = list->next;
     randindex--;
@@ -142,6 +146,8 @@ int main() {
   p_list = insert_order(p_list, "pearl jam", "even");
   p_list = insert_order(p_list, "pearl jam", "alive");
   print_list(p_list);
+  print_node(find_random(p_list));
   return 0;
 }
+
 */

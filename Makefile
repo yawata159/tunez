@@ -1,16 +1,16 @@
-default: run
+default: tunez
 
-songnode.o : songnode.c 
-	gcc -c songnode.c -o songnode.o
+link_list.o : link_list.c 
+	gcc -o link_list.o -c link_list.c 
 
-main.o: main.c 
-	gcc -c main.c -o main.o
+library.o: library.c 
+	gcc -o library.o -c library.c 
 
-tunez: songnode.o main.o
-	gcc songnode.o main.o -o tunez
+main.o: main.c
+	gcc -o main.o -c main.c
 
-run: tunez
-	./tunez
+tunez: link_list.o library.o main.o
+	gcc -o tunez link_list.o library.o main.o 
 
 clean:
 	rm *~; rm *.o
