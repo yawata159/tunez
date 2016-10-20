@@ -11,14 +11,14 @@ song_node *table[26];
 void add_song(char *artist, char *name) {
   table[artist[0] - 'a'] = insert_order(table[artist[0] - 'a'], artist, name);
   printf(">> Added ");
-  print_node(table[artist[0] - 'a']);
+  printf("%s - %s \n", artist, name);
 }
 
 // delete a song
 void delete_song(char *artist, char *name) {
   table[artist[0] - 'a'] = remove_song(table[artist[0] - 'a'], artist, name);
   printf(">> Removed ");
-  print_node(table[artist[0] - 'a']);  
+  printf("%s - %s \n", artist, name);
 }
 
 // delete all the nodes

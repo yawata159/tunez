@@ -87,7 +87,7 @@ song_node * remove_song(song_node *list, char *artist, char *name) {
     else
       list=list->next;
   }
-  return 0;
+  return ret;
 }
 
 // delete all nodes (returns first node - now null)
