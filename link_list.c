@@ -23,12 +23,10 @@ void print_node(song_node *node) {
 // print all nodes (sep. by |)
 void print_list(song_node *list) {
   if (list) {
-    printf("|");
     while(list) {
-      printf(" %s - %s |", list->artist, list->name );
+      print_node(list);
       list = list->next;
     }
-    printf("\n");  
   }  
 }
 
@@ -102,9 +100,9 @@ song_node * free_list(song_node *list) {
 }
 
 // find song by name (first occurrence)
-song_node * find_song(song_node *list, char *name) {
+song_node * find_song(song_node *list, char *artist, char *name) {
   while (list) {
-    if (strcmp(name, list->name) == 0)
+    if (strcmp(name, list->name) == 0 && strcmp(artist, list->artist) == 0)
       return list;
     else
       list=list->next;
@@ -125,10 +123,6 @@ song_node * find_artist(song_node *list, char *artist) {
 
 // find random song
 song_node * find_random(song_node *list) {
-  song_node *copy = list;
-  while (copy) {
-    copy = copy->next;
-  }
   srand(time(NULL));
   int randindex = (int)(len(list) * ((double)rand()/RAND_MAX));
   while (randindex) {
@@ -137,17 +131,3 @@ song_node * find_random(song_node *list) {
   }
   return list;
 }
-
-/*
-int main() {
-  song_node *p_list = 0;
-  p_list = insert_order(p_list, "pearl jam", "yellow");
-  p_list = insert_order(p_list, "pink floyd", "time");
-  p_list = insert_order(p_list, "pearl jam", "even");
-  p_list = insert_order(p_list, "pearl jam", "alive");
-  print_list(p_list);
-  print_node(find_random(p_list));
-  return 0;
-}
-
-*/

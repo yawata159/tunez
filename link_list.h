@@ -1,3 +1,6 @@
+#ifndef LINK_LIST_HEADER
+#define LINK_LIST_HEADER
+
 typedef struct song_node {
   char name[256];
   char artist[256];
@@ -15,6 +18,8 @@ song_node * insert_order(song_node *list, char *artist, char *name);
 song_node * remove_song(song_node *list, char *artist, char *name);
 song_node * free_list(song_node *list);
 
-song_node * find_song(song_node *list, char *name);
+song_node * find_song(song_node *list, char *artist, char *name);
 song_node * find_artist(song_node *list, char *artist);
 song_node * find_random(song_node *list);
+
+#endif
